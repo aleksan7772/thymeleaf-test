@@ -32,7 +32,7 @@ public class ClientController {
 
     @GetMapping("/new")
     public String showSignUpForm( Model model) {
-        model.addAttribute("clientAdd", new Client());
+        model.addAttribute("client", new Client());
         return "add-client";
     }
 
