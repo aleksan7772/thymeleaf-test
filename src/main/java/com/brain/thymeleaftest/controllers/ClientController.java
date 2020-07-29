@@ -2,7 +2,6 @@ package com.brain.thymeleaftest.controllers;
 
 import com.brain.thymeleaftest.entities.Client;
 import com.brain.thymeleaftest.repositories.ClientRepository;
-import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,8 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
 import java.beans.Transient;
-import java.util.Collection;
 
 /**
  * @author Vladimir Bratchikov
@@ -19,19 +18,29 @@ import java.util.Collection;
 @Controller
 public class ClientController {
     private final ClientRepository clientRepository;
+
     public ClientController(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
     }
 
     @GetMapping("/")
-    public String index( Model model) {
+    public String index(Model model) {
         model.addAttribute("clients", clientRepository.findAll());
         return "index";
     }
 
+    @GetMapping("/page1")
+    public String page1(Model model) {
+        return "page1";
+    }
+
+    @GetMapping("/page2")
+    public String page2(Model model) {
+        return "page2";
+    }
 
     @GetMapping("/new")
-    public String showSignUpForm( Model model) {
+    public String showSignUpForm(Model model) {
         model.addAttribute("client", new Client());
         return "add-client";
     }
@@ -51,7 +60,7 @@ public class ClientController {
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {
         Client client = clientRepository.findById(id)
-            .orElseThrow(() -> new IllegalArgumentException("Invalid client Id:" + id));
+                .orElseThrow(() -> new IllegalArgumentException("Invalid client Id:" + id));
         model.addAttribute("client", client);
         return "update-client";
     }
