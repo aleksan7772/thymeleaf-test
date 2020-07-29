@@ -7,7 +7,7 @@
   <div>
     <div>
       <h2 th:if="${clients eq null or clients.empty}">No clients yet!</h2>
-      <div th:if="${clients ne null}">
+      <div th:if="${clients ne null and not client.empty}">
         <h2>clients</h2>
         <table>
           <thead>
